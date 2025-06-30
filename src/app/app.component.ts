@@ -7,7 +7,7 @@ import { filter } from 'rxjs';
   selector: 'app-root',
   imports: [RouterOutlet],
   template: `
-    <h1>Welcome to pwa-demo - V7!</h1>
+    <h1>Welcome to pwa-demo - V8! <button (click)="reload()">reload</button></h1>
 
     <router-outlet />
   `,
@@ -21,10 +21,14 @@ export class AppComponent {
       this.swUpdate.versionUpdates
         .pipe(filter(event => event.type === 'VERSION_READY'))
         .subscribe((event: VersionReadyEvent) => {
-          if (confirm(`A new version (${event.latestVersion.hash}) is available. Load New Version?`)) {
-            window.location.reload();
+          if (confirm('A new version is available. Load New Version?')) {
+            this.reload();
           }
         });
     }
+  }
+
+  reload() {
+    window.location.reload();
   }
 }
