@@ -5,7 +5,7 @@ import { RouterLink } from "@angular/router";
 @Component({
   selector: 'app-posts',
   template: `
-    <h1>Posts</h1>
+    <h1>Posts <button routerLink="/">Home</button></h1>
     <ul>
       @for (post of postsService.posts.value(); track post.id) {
         <li [routerLink]="['/post', post.id]">
@@ -14,7 +14,8 @@ import { RouterLink } from "@angular/router";
       }
     </ul>
   `,
-  imports: [RouterLink]
+  imports: [RouterLink],
+  providers: [PostsService],
 })
 export default class PostsComponent {
   readonly postsService = inject(PostsService);
