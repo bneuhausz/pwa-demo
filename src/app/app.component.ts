@@ -7,7 +7,7 @@ import { filter } from 'rxjs';
   selector: 'app-root',
   imports: [RouterOutlet],
   template: `
-    <h1>Welcome to pwa-demo - V8! <button (click)="reload()">reload</button></h1>
+    <h1>Welcome to pwa-demo - V9! <button (click)="reload()">reload</button></h1>
 
     <router-outlet />
   `,
