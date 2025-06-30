@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 src/environments/environment.development.ts
 src/environments/environment.production.ts
+/push-server/node_modules
+push-server/.env
