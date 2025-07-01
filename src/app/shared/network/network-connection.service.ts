@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { NavigationError, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +8,7 @@ import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core
 export class NetworkConnectionService {
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly online = signal(this.isBrowser ? navigator.onLine : true);
+  private readonly router = inject(Router);
 
   readonly hasConnection = computed(() => this.online());
 
@@ -15,5 +17,11 @@ export class NetworkConnectionService {
       window.addEventListener('online', () => this.online.set(true));
       window.addEventListener('offline', () => this.online.set(false));
     }
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationError && !this.online()) {
+        this.router.navigate(['/offline']);
+      }
+    });
   }
 }

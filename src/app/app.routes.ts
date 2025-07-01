@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./post/post.component'),
   },
   {
+    path: 'offline',
+    loadComponent: () => import('./offline/offline.component'),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
