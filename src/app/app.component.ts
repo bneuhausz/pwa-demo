@@ -2,12 +2,19 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
+import { NetworkConnectionService } from './shared/network/network-connection.service';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
   template: `
-    <h1>Welcome to pwa-demo - V11! <button (click)="reload()">reload</button></h1>
+    <h1>
+      Welcome to pwa-demo - V15!
+      <button (click)="reload()">reload</button>
+      @if (!networkConnectionService.hasConnection()) {
+        <span>🚫 Offline</span>
+      }
+    </h1>
 
     <router-outlet />
   `,
@@ -15,6 +22,7 @@ import { filter } from 'rxjs';
 })
 export class AppComponent {
   private readonly swUpdate = inject(SwUpdate);
+  readonly networkConnectionService = inject(NetworkConnectionService);
 
   constructor() {
     if (this.swUpdate.isEnabled) {
