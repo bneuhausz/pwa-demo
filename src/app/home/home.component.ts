@@ -11,6 +11,7 @@ import { NotificationsService } from "../shared/notifications/notifications.serv
     <button routerLink="/posts">Posts</button>
     <button (click)="subscribe()" [disabled]="sub">Subscribe</button>
     <button (click)="sendNotification()">Send Notification</button>
+    <button routerLink="/data-matrix-scanner">Scanner</button>
   `,
   imports: [RouterLink],
 })

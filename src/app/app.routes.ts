@@ -18,6 +18,10 @@ export const routes: Routes = [
     loadComponent: () => import('./offline/offline.component'),
   },
   {
+    path: 'data-matrix-scanner',
+    loadComponent: () => import('./data-matrix-scanner/data-matrix-scanner.component'),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
