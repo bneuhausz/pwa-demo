@@ -1,0 +1,127 @@
+{
+  "configVersion": 1,
+  "timestamp": 1752130369785,
+  "index": "/pwa-demo/index.csr.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/pwa-demo/chunk-5MFH4WBZ.js",
+        "/pwa-demo/chunk-DI6KMG7F.js",
+        "/pwa-demo/chunk-EYJ6ZPTM.js",
+        "/pwa-demo/chunk-H4CMVTFQ.js",
+        "/pwa-demo/chunk-MIO7BTNU.js",
+        "/pwa-demo/chunk-O2GYC4XN.js",
+        "/pwa-demo/chunk-OCMXFDO5.js",
+        "/pwa-demo/chunk-QZAYTTT7.js",
+        "/pwa-demo/chunk-VCWYCHY7.js",
+        "/pwa-demo/favicon.ico",
+        "/pwa-demo/index.csr.html",
+        "/pwa-demo/index.html",
+        "/pwa-demo/main-P7P4U53N.js",
+        "/pwa-demo/manifest.webmanifest",
+        "/pwa-demo/polyfills-B6TNHZQ6.js",
+        "/pwa-demo/styles-5INURTSO.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/pwa-demo/icons/icon-128x128.png",
+        "/pwa-demo/icons/icon-144x144.png",
+        "/pwa-demo/icons/icon-152x152.png",
+        "/pwa-demo/icons/icon-192x192.png",
+        "/pwa-demo/icons/icon-384x384.png",
+        "/pwa-demo/icons/icon-512x512.png",
+        "/pwa-demo/icons/icon-72x72.png",
+        "/pwa-demo/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "post",
+      "patterns": [
+        "https:\\/\\/jsonplaceholder\\.typicode\\.com\\/posts\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 100,
+      "maxAge": 86400000,
+      "timeoutMs": 3000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    },
+    {
+      "name": "posts",
+      "patterns": [
+        "https:\\/\\/jsonplaceholder\\.typicode\\.com\\/posts"
+      ],
+      "strategy": "performance",
+      "maxSize": 100,
+      "maxAge": 86400000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/pwa-demo/chunk-5MFH4WBZ.js": "91482eccf1c40ee0178e1b5667b79a9beeb93d2e",
+    "/pwa-demo/chunk-DI6KMG7F.js": "7e49696767ad61195b52959fb82082247f571e49",
+    "/pwa-demo/chunk-EYJ6ZPTM.js": "bb728bd3b9738103a394d0d4f184d65774479f4a",
+    "/pwa-demo/chunk-H4CMVTFQ.js": "d633d51bb1d880ad50d68d4b2db738597d2c1c68",
+    "/pwa-demo/chunk-MIO7BTNU.js": "3872dc13694045f211b071551c1dd78506d5b155",
+    "/pwa-demo/chunk-O2GYC4XN.js": "ed423b5b309302981c4ba93f74cd2b48ba94b353",
+    "/pwa-demo/chunk-OCMXFDO5.js": "f2d2f2a351a309eddbdbaf157e85636a046f1b0d",
+    "/pwa-demo/chunk-QZAYTTT7.js": "eb318e08ac2b30a0fa571682bb96711756a71e92",
+    "/pwa-demo/chunk-VCWYCHY7.js": "1a84449529689e78ae9b03fb3841a2c720ee654f",
+    "/pwa-demo/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/pwa-demo/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/pwa-demo/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/pwa-demo/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/pwa-demo/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/pwa-demo/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/pwa-demo/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/pwa-demo/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/pwa-demo/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/pwa-demo/index.csr.html": "b29662cd93e8836e16f298acaa9326d83179ec03",
+    "/pwa-demo/index.html": "e78c5aa8f4de5d3f13027cc7092c53cd722793db",
+    "/pwa-demo/main-P7P4U53N.js": "6bb5accbd3061784750146f1682786f1d148c4b8",
+    "/pwa-demo/manifest.webmanifest": "b45d50f0e5e7042c8c347e98b56c6f7a596a8942",
+    "/pwa-demo/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
+    "/pwa-demo/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
