@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:pwa-demo": "node dist/pwa-demo/server/server.mjs",
-    "deoploy": "ng deploy --base-href=/pwa-demo/"
+    "deploy": "ng deploy --base-href=/pwa-demo/"
   },
   "private": true,
   "dependencies": {
