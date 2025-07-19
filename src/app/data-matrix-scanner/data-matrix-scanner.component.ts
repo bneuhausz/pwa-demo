@@ -74,8 +74,8 @@ export default class DataMatrixScannerComponent implements OnDestroy {
       const constraints = {
         video: {
           deviceId: rearCamera.deviceId,
-          // width: { max: 1920 },
-          // height: { max: 1080 }
+          width: { max: 1920 },
+          height: { max: 1080 }
         },
       };
 
