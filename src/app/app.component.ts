@@ -9,7 +9,7 @@ import { NetworkConnectionService } from './shared/network/network-connection.se
   imports: [RouterOutlet],
   template: `
     <h1>
-      Welcome to pwa-demo - V18!
+      Welcome to pwa-demo - V20!
       <button (click)="reload()">reload</button>
       @if (!networkConnectionService.hasConnection()) {
         <span>🚫 Offline</span>

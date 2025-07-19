@@ -10,8 +10,8 @@ import { BarcodeFormat, DecodeHintType } from '@zxing/library';
 
       <video
         id="video"
-        width="400"
-        height="300"
+        width="320"
+        height="480"
         style="border: 1px solid black; margin-top: 1rem;"
         autoplay
         muted
@@ -74,8 +74,8 @@ export default class DataMatrixScannerComponent implements OnDestroy {
       const constraints = {
         video: {
           deviceId: rearCamera.deviceId,
-          width: { ideal: 1080 },
-          height: { ideal: 1920 }
+          width: { ideal: 1920 },
+          height: { ideal: 1080 }
         },
       };
 
