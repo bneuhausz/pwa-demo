@@ -1,4 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, inject, OnDestroy, PLATFORM_ID, signal, viewChild } from '@angular/core';
 import { BrowserMultiFormatReader, IScannerControls } from '@zxing/browser';
 import { BarcodeFormat, DecodeHintType } from '@zxing/library';
 
@@ -8,25 +9,27 @@ import { BarcodeFormat, DecodeHintType } from '@zxing/library';
     <div class="scanner-container">
       <button (click)="startScanner()">Start Scanner</button>
 
-      <video
-        id="video"
-        width="320"
-        height="480"
-        style="border: 1px solid black; margin-top: 1rem;"
-        autoplay
-        muted
-        playsinline
-      ></video>
+        <video
+          #video
+          id="video"
+          width="320"
+          height="480"
+          [style.display]="isCameraActive() ? 'block' : 'none'"
+          style="border: 1px solid black; margin-top: 1rem;"
+          autoplay
+          muted
+          playsinline
+        ></video>     
 
-      @if (width || height) {
+      @if (width() || height()) {
         <p>
-          Video Resolution: {{ width }} x {{ height }}
+          Video Resolution: {{ width() }} x {{ height() }}
         </p>
       }
 
-      @if (scannedResult) {
+      @if (scannedResult()) {
         <p class="result">
-          ✅ Scanned Code: {{ scannedResult }}
+          ✅ Scanned Code: {{ scannedResult() }}
         </p>
       }
     </div>
@@ -46,25 +49,49 @@ import { BarcodeFormat, DecodeHintType } from '@zxing/library';
   `],
 })
 export default class DataMatrixScannerComponent implements OnDestroy {
-  scannedResult: string | null = null;
-  width: number | null = null;
-  height: number | null = null;
+  readonly platformId = inject(PLATFORM_ID);
+  readonly isBrowser = isPlatformBrowser(this.platformId);
+
+  scannedResult = signal<string | null>(null);
+  isCameraActive = signal<boolean>(false);
+  width = signal<number | null>(null);
+  height = signal<number | null>(null);
   private controls?: IScannerControls;
+  videoRef = viewChild<ElementRef<HTMLVideoElement>>('video');
 
   async startScanner() {
+    if (!this.isBrowser) return;
+
+    this.isCameraActive.set(true);
+    this.scannedResult.set(null);
+
+    queueMicrotask(() => {
+      setTimeout(() => this.tryStartScanner(), 0);
+    });
+  }
+
+  private async tryStartScanner() {
+    const videoElement = this.videoRef();
+    if (!videoElement) {
+      console.warn('Video element not yet available');
+      return;
+    }
+
     const hints = new Map();
-    hints.set(DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.DATA_MATRIX, BarcodeFormat.QR_CODE, BarcodeFormat.CODE_128, BarcodeFormat.EAN_13]);
+    hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+      BarcodeFormat.DATA_MATRIX,
+      BarcodeFormat.QR_CODE,
+      BarcodeFormat.CODE_128,
+      BarcodeFormat.EAN_13
+    ]);
 
     const reader = new BrowserMultiFormatReader(hints, {
       delayBetweenScanAttempts: 200,
     });
 
-    const videoElement = document.getElementById('video') as HTMLVideoElement;
-
-    videoElement.onloadedmetadata = () => {
-      console.log('Actual resolution:', videoElement.videoWidth, 'x', videoElement.videoHeight);
-      this.width = videoElement.videoWidth;
-      this.height = videoElement.videoHeight;
+    videoElement.nativeElement.onloadedmetadata = () => {
+      this.width.set(videoElement.nativeElement.videoWidth);
+      this.height.set(videoElement.nativeElement.videoHeight);
     };
 
     try {
@@ -80,17 +107,17 @@ export default class DataMatrixScannerComponent implements OnDestroy {
       };
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      videoElement.srcObject = stream;
-      videoElement.setAttribute('playsinline', 'true');
-      await videoElement.play();
+      videoElement.nativeElement.srcObject = stream;
+      videoElement.nativeElement.setAttribute('playsinline', 'true');
+      await videoElement.nativeElement.play();
 
-      const controls = await reader.decodeFromVideoElement(videoElement, (result, error, scannerControls) => {
+      const controls = await reader.decodeFromVideoElement(videoElement.nativeElement, (result, error, scannerControls) => {
         if (result) {
-          this.scannedResult = result.getText();
-          console.log('✅ Scanned:', this.scannedResult);
-          scannerControls.stop();
+          this.scannedResult.set(result.getText());
+          this.stopScanner();
         }
       });
+
       this.controls = controls;
     } catch (err) {
       console.error('❌ Camera initialization failed:', err);
@@ -98,6 +125,20 @@ export default class DataMatrixScannerComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.stopScanner();
+  }
+
+  stopScanner() {
+    if (!this.isBrowser) return;
+
     this.controls?.stop();
+    const videoElement = this.videoRef();
+    if (videoElement?.nativeElement.srcObject instanceof MediaStream) {
+      videoElement.nativeElement.srcObject.getTracks().forEach(track => track.stop());
+      videoElement.nativeElement.srcObject = null;
+    }
+
+    this.isCameraActive.set(false);
+    this.controls = undefined;
   }
 }
